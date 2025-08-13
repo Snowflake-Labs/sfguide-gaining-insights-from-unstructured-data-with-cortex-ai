@@ -19,6 +19,9 @@
     -- create analytics schema
     CREATE OR REPLACE SCHEMA tb_voc.analytics;
 
+    -- create media schema
+    CREATE OR REPLACE SCHEMA tb_voc.media;
+
     -- create tasty_ds_wh warehouse
     CREATE OR REPLACE WAREHOUSE tasty_ds_wh
         WAREHOUSE_SIZE = 'large'
@@ -198,6 +201,16 @@
     )
 
     SELECT * FROM CONCATENATED_REVIEWS;
+
+-- Create image storage stage
+CREATE STAGE IF NOT EXISTS tb_voc.MEDIA.IMAGES
+  ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')
+  DIRECTORY = (ENABLE = true);
+
+-- Create audio storage stage  
+CREATE STAGE IF NOT EXISTS tb_voc.MEDIA.AUDIO
+  ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')
+  DIRECTORY = (ENABLE = true);
 
   -- setup completion note
   SELECT 'Setup is complete' AS note;
