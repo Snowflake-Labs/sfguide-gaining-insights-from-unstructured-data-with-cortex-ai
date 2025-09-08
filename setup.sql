@@ -173,6 +173,8 @@
     COPY INTO tb_voc.raw_support.truck_reviews
     FROM @tb_voc.public.s3load/raw_support/truck_reviews/;
 
+    USE SCHEMA tb_voc.analytics;
+
     CREATE OR REPLACE TABLE CONCATENATED_REVIEWS AS
     WITH RANKED_REVIEWS AS (
         SELECT 
