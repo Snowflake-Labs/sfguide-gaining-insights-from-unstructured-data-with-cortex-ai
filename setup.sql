@@ -22,18 +22,6 @@
     -- create media schema
     CREATE OR REPLACE SCHEMA tb_voc.media;
 
-    -- create tasty_ds_wh warehouse
-    CREATE OR REPLACE WAREHOUSE tasty_ds_wh
-        WAREHOUSE_SIZE = 'large'
-        WAREHOUSE_TYPE = 'standard'
-        AUTO_SUSPEND = 60
-        AUTO_RESUME = TRUE
-        INITIALLY_SUSPENDED = TRUE
-    COMMENT = 'data science warehouse for tasty bytes';
-
-
-    USE WAREHOUSE tasty_ds_wh;
-
     /*--
     • file format and stage creation
     --*/
