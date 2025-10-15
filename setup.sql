@@ -22,6 +22,14 @@
     -- create media schema
     CREATE OR REPLACE SCHEMA tb_voc.media;
 
+    -- create warehouse for ingestion
+    CREATE OR REPLACE WAREHOUSE demo_build_wh
+       WAREHOUSE_SIZE = 'xlarge'
+       WAREHOUSE_TYPE = 'standard'
+       AUTO_SUSPEND = 60
+       AUTO_RESUME = TRUE
+       INITIALLY_SUSPENDED = TRUE;
+
     /*--
     • file format and stage creation
     --*/
@@ -144,6 +152,7 @@
     raw zone table load 
     --*/
 
+   USE WAREHOUSE demo_build_wh;
 
     -- menu table load
     COPY INTO tb_voc.raw_pos.menu
@@ -203,6 +212,8 @@ CREATE STAGE IF NOT EXISTS tb_voc.MEDIA.AUDIO
   DIRECTORY = (ENABLE = true);
 
 ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
+
+DROP WAREHOUSE demo_build_wh;
 
   -- setup completion note
   SELECT 'Setup is complete' AS note;
